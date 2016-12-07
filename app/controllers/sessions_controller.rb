@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :check_if_logged_in, only: :new
   def new
 
   end
@@ -18,5 +19,9 @@ class SessionsController < ApplicationController
   def destroy
     log_out if logged_in?
     redirect_to root_url
+  end
+  
+  def check_if_logged_in
+    redirect_to current_user if logged_in?
   end
 end
