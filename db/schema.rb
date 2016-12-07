@@ -10,18 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207113630) do
+ActiveRecord::Schema.define(version: 20161207115920) do
 
   create_table "additional_params", force: :cascade do |t|
-    t.integer  "formula_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "formula_id"
+    t.index ["formula_id"], name: "index_additional_params_on_formula_id"
   end
 
   create_table "formulas", force: :cascade do |t|
-    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_formulas_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
