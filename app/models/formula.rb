@@ -1,4 +1,4 @@
 class Formula < ApplicationRecord
   belongs_to :user
-  has_one :additional_param, :dependent => :destroy
+  has_many :additional_params, :dependent => :destroy
 end
