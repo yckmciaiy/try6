@@ -1,15 +1,16 @@
 <% provide(:title, "Known users") %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <% @users.each do |user| %>
-        <% if current_user.eql?(user) %>
-          <h1>Hey, that's me!</h1>
-	<% else %>
-          <h1><%= link_to user.username, user_path(user.id) %></h1>
-        <% end %>
-      <% end %>
-    </section>
-  </aside>
-</div>
+<h1>All registered users</h1>
+
+<%= will_paginate %>
+<ul class="indexes">
+  <% @users.each do |user| %>
+    <% if current_user? user %>
+      <li>Hey, that's me!</li>
+    <% else %>
+      <li><%= link_to user.username, user_path(user.id) %></li>
+    <% end %>
+  <% end %>
+</ul>
+
+<%= will_paginate %>
 
