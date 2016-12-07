@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_many :formulas, :dependent => :destroy
+  
+  before_save { email.downcase! }
+
   validates :name,  presence: true, length: { maximum: 80 }
   validates :username,  presence: true, length: { maximum: 50 },
 		    uniqueness: { case_sensitive: false }
@@ -7,5 +10,6 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-
+  validates :password, presence: true, length: { minimum: 6 }
+  has_secure_password
 end
