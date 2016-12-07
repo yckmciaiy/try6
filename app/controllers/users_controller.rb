@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    log_in @user
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user }
@@ -63,7 +64,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      return @user = User.find(params[:id]) unless params[:id].nil?
+      return @user = User.find(params[:id || :username]) unless params[:id].nil?
       new
     end
 
