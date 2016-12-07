@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :logged_in_user, except: [:index]
+  before_action :correct_user,   only: [:edit, :update, :destroy]
   # GET /users
   # GET /users.json
   def index
@@ -14,20 +15,24 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    if logged_in?
+      redirect_to current_user
+    end
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
+    
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
-    log_in @user
     respond_to do |format|
       if @user.save
+        log_in @user
         format.html { redirect_to @user }
         format.json { render :show, status: :created, location: @user }
       else
@@ -42,7 +47,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user }
+        format.html { redirect_to @user, flash: {success: "Profile updated"} }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit}
@@ -63,11 +68,23 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_path
+      end
+    end
+
     def set_user
       return @user = User.find(params[:id || :username]) unless params[:id].nil?
       new
     end
-
+    
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).
