@@ -1,0 +1,1 @@
+json.array! @additional_params, partial: 'additional_params/additional_param', as: :additional_param

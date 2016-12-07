@@ -1,0 +1,22 @@
+<%= form_for(additional_param) do |f| %>
+  <% if additional_param.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(additional_param.errors.count, "error") %> prohibited this additional_param from being saved:</h2>
+
+      <ul>
+      <% additional_param.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :formula_id %>
+    <%= f.number_field :formula_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
