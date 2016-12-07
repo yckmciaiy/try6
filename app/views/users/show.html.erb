@@ -3,8 +3,35 @@
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <h1>Profile of <%= @user.username %></h1>
+      <h1>
+        <% if @user.admin? %>
+	  Admin account of
+        <% else %>
+	  Profile of
+        <% end %> 
+	<strong><%= @user.username %></strong></h1>
     </section>
   </aside>
 </div>
+
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+	<% if !current_user?(@user)&&current_user.admin? %>
+	<%= link_to "Edit account", edit_user_path(@user), 
+           class: "btn btn-warning" %>
+        <% end %>
+      </h1>    
+      <h1>
+	<% if !current_user?(@user)&&current_user.admin? %>
+	<%= link_to "Delete account?", @user, method: :delete,
+           data: { confirm: "Delete account?" }, class: "btn btn-danger" %>
+        <% end %>
+      </h1>    
+    </section>
+  </aside>
+</div>
+
+
 

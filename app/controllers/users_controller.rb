@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, except: [:index]
+  before_action :logged_in_user, except: [:index, :new, :create]
   before_action :correct_user,   only: [:edit, :update, :destroy]
   # GET /users
   # GET /users.json
@@ -61,11 +61,14 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to users_url, flash: {success: "User deleted"} }
       format.json { head :no_content }
     end
   end
-
+  def give_admin
+    @user.admin = true if !current_user?(@user)&&current_user.admin?
+    render @user
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def logged_in_user
@@ -75,19 +78,17 @@ class UsersController < ApplicationController
         redirect_to login_path
       end
     end
-
     def set_user
       return @user = User.find(params[:id || :username]) unless params[:id].nil?
       new
-    end
-    
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).
 	permit(:username, :name, :email, :password, :password_confirmation)
+    end
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)||current_user.admin?
     end
 end
