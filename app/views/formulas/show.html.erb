@@ -1,0 +1,54 @@
+<% provide(:title, @formula.title) %>
+
+<h1>Formula <strong><%= @formula.title %></strong></h1>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @formula.user[:username] %>
+</p>
+
+<p>
+  <strong>Win points:</strong>
+  <%= @formula.win_points %>
+</p>
+
+<p>
+  <strong>Lose points:</strong>
+  <%= @formula.lose_points %>
+</p>
+
+<p>
+  <strong>
+    <% if @formula.glicko %>
+      Glicko
+    <% else %>
+      Elo
+    <% end %>
+      is in use
+  </strong>
+</p>
+
+<p>
+  <% if @formula.winstreak %>
+    <strong>Winstreak is boosted for </strong>
+    <%= @formula.winstreak_boost %>
+  <% end %>
+</p>
+
+<p>
+  <% if @formula.losestreak %>
+    <strong>Losestreak is boosted for </strong>
+    <%= @formula.losestreak_boost %>
+  <% end %>
+</p>
+
+<p>
+  <% if @formula.extra_params %>
+    Using Extra Params to calculate ratings
+  <% end %>
+</p>
+<% if current_user[:id] == @formula.user_id %>
+<%= link_to 'Edit formula', edit_formula_path(@formula), 
+           class: "btn btn-warning"%>
+<%= link_to 'Delete formula', @formula, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+<% end %>

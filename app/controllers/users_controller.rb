@@ -62,13 +62,6 @@ class UsersController < ApplicationController
   end
   private
     # Use callbacks to share common setup or constraints between actions.
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_path
-      end
-    end
     def set_user
       return @user = User.find(params[:id || :username]) unless params[:id].nil?
       new

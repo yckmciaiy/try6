@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  title: MyString
+  win_points: 1
+  lose_points: 1
+  glicko: false
+  winstreak: false
+  losestreak: false
+  winstreak_boost: 1.5
+  losestreak_boost: 1.5
+  extra_params: false
+
+two:
+  user: two
+  title: MyString
+  win_points: 1
+  lose_points: 1
+  glicko: false
+  winstreak: false
+  losestreak: false
+  winstreak_boost: 1.5
+  losestreak_boost: 1.5
+  extra_params: false

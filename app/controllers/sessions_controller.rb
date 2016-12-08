@@ -1,8 +1,5 @@
 class SessionsController < ApplicationController
   before_action :check_if_logged_in, only: :new
-  def new
-
-  end
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)

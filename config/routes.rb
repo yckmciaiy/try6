@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :formulas
+
+  resources :users do
+    resources :formulas, only: [:edit, :new, :create]
+  end
+
+  
   get 'sessions/new'
 
   get '/about', to: 'static_pages#about'
@@ -9,7 +16,7 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
-  resources :users
+  
 
   root 'users#index'
 end

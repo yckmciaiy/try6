@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208181031) do
+ActiveRecord::Schema.define(version: 20161208193659) do
+
+  create_table "formulas", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "win_points"
+    t.integer  "lose_points"
+    t.boolean  "glicko"
+    t.boolean  "winstreak"
+    t.boolean  "losestreak"
+    t.float    "winstreak_boost"
+    t.float    "losestreak_boost"
+    t.boolean  "extra_params"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_formulas_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
