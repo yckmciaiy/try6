@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   attr_accessor :remember_token
   has_many :formulas, :dependent => :destroy
   

@@ -10,8 +10,28 @@
 	  Profile of
         <% end %> 
 	<strong><%= @user.username %></strong></h1>
+      <h1>
+        <% if @user.eql? current_user %>
+          <%= link_to "Create formula", new_formula_path(
+		{:user_id => "#{current_user.id}"}), 
+           class: "btn btn-success" %>
+        <% end %> 
+      </h1>
     </section>
   </aside>
+  <div class="col-md-8">
+    <% if @user.formulas.any? %>
+      <h5>This user has already created 
+	<%= @user.formulas.count %> formulas
+      </h5>
+      <ul class="indexes">
+        <%= render @formulas %>
+      </ul>
+      <%= will_paginate @formulas %>
+    <% else %>
+      <h5>This user hasn't created any formulas yet</h5>
+    <% end %>
+  </div>
 </div>
 
 <div class="row">
