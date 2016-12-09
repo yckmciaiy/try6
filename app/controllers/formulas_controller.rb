@@ -4,7 +4,8 @@ class FormulasController < ApplicationController
 	only: [:show, :update, :destroy, :edit]
   before_filter :check_creator, only: [:save, :update, :destroy]
   # GET /formulas
-  # GET /formulas.json
+  # GET /formulas.json 
+
   def new 
     @formula = current_user.formulas.new
   end
@@ -25,7 +26,8 @@ class FormulasController < ApplicationController
   # POST /formulas
   # POST /formulas.json
   def create
-    @formula ||= current_user.formulas.new(formula_params)
+    @formula = current_user.formulas.new(formula_params)
+    users.new
     respond_to do |format|
       if @formula.save
         format.html { render :show, flash: {:success => "Formula successfully created"} }
@@ -42,7 +44,7 @@ class FormulasController < ApplicationController
   def update
     respond_to do |format|
       if @formula.update(formula_params)
-        format.html { redirect_to @formula, flash: {:success => "Formula successfully updated"} }
+        format.html { render :show, flash: {:success => "Formula successfully updated"} }
         format.json { render :show, status: :ok, location: @formula }
       else
         format.html { render :edit }
@@ -71,9 +73,8 @@ class FormulasController < ApplicationController
       current_user[:id] == :user_id
     end
     def formula_params
-      params.require(:formula).permit(:user_id, :title, 
-	:win_points, :lose_points, :glicko, 
-	:winstreak, :losestreak, :winstreak_boost, 
-	:losestreak_boost, :extra_params)
+      params.require(:formula).permit(:user_id, :title, :extra_points, 
+	:glicko, :winstreak, :losestreak, :winstreak_boost, 
+	:losestreak_boost, :use_extra_params)
     end
 end

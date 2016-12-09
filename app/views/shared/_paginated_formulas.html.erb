@@ -1,0 +1,23 @@
+<%= will_paginate @formulas %>
+<ul class="indexes">
+  <% @formulas.each do |formula| %>
+    <li> 
+      <strong><%= formula.title %></strong> 
+      created by
+      <% user = UsersController::User.find(formula.user_id) %>
+      <strong><%= user[:username] %> </strong> . 
+      Uses <% if formula.glicko %>
+      <strong>Glicko</strong>
+      <% else %>
+      <strong>Elo</strong>
+      <% end %>
+      <%= "and boosting on win sreak" if formula.winstreak %>
+      <%= "and boosting on lose sreak" if formula.losestreak %>
+      <%= "and additional params" if formula.use_extra_params %>
+      <%= link_to "Check it out now!", formula_path(formula), 
+           class: "btn btn-access" %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @formulas %>

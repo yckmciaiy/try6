@@ -1,0 +1,11 @@
+<% extra_params.each do |ep| %>
+  <p>Extra param
+    <strong><%= ep.title %></strong>
+    with weight
+    <strong><%= ep.weight %></strong>
+    <%= link_to 'edit', edit_extra_param_path(ep), 
+        class: "btn btn-warning"%>
+    <%= link_to 'Delete', ep, method: :delete, data: 
+	{ confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+  </p>
+<% end %>

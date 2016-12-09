@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @extra_param.title %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @extra_param.weight %>
+</p>
+
+<p>
+  <strong>Formula:</strong>
+  <%= @extra_param.formula %>
+</p>
+
+<%= link_to 'Edit', edit_extra_param_path(@extra_param) %> |
+<%= link_to 'Back', extra_params_path %>

@@ -22,10 +22,7 @@
       <%= pluralize(@user.formulas.count,'formula') %>
     </h5>
     <% if @user.formulas.any? %>
-      <ul class="indexes">
-        <%= render @user.formulas %>
-      </ul>
-      <%= will_paginate @formulas %>
+	<%= render "/shared/paginated_formulas" %>
     <% end %>
   </div>
 </div>

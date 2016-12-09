@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :formulas
-
+  resources :extra_params, except: [:show, :index]
+  resources :formulas do
+    resources :extra_params, except: [:show, :index]
+  end
+ 
   resources :users do
-    resources :formulas, only: [:edit, :new, :create]
+    resources :formulas do
+      resources :extra_params, except: [:show, :index]
+    end
   end
 
   

@@ -11,12 +11,6 @@
       <%= f.label :title %>
       <%= f.text_field :title, class: 'form-control' %>
 
-      <%= f.label :win_points %>
-      <%= f.number_field :win_points, class: 'form-control' %>
-
-      <%= f.label :lose_points %>
-      <%= f.number_field :lose_points, class: 'form-control' %>
-
       <%= f.label :glicko, class: "checkbox inline" do %>
       <%= f.check_box :glicko %>
       <span>Use glicko (otherwise elo)</span>
@@ -27,21 +21,24 @@
       <span>Should win streak affect points?</span>
       <% end %>
 
+      <%= f.label :winstreak_boost %>
+      <%= f.text_field :winstreak_boost, class: 'form-control' %>
+
       <%= f.label :losestreak, class: "checkbox inline" do %>
       <%= f.check_box :losestreak %>
       <span>Should lose streak affect points?</span>
       <% end %>
 
-      <%= f.label :winstreak_boost %>
-      <%= f.text_field :winstreak_boost, class: 'form-control' %>
-
       <%= f.label :losestreak_boost %>
       <%= f.text_field :losestreak_boost, class: 'form-control' %>
   
-      <%= f.label :extra_params, class: "checkbox inline" do %>
-      <%= f.check_box :extra_params %>
+      <%= f.label :use_extra_params, class: "checkbox inline" do %>
+      <%= f.check_box :use_extra_params %>
       <span>Use additional parameters?</span>
       <% end %>
+
+      <%= f.label :extra_points %>
+      <%= f.number_field :extra_points, class: 'form-control' %>
 
       <%= f.submit button_text, class: "btn btn-primary" %>
     <% end %>

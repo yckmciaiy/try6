@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Extra Params</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Weight</th>
+      <th>Formula</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @extra_params.each do |extra_param| %>
+      <tr>
+        <td><%= extra_param.title %></td>
+        <td><%= extra_param.weight %></td>
+        <td><%= extra_param.formula %></td>
+        <td><%= link_to 'Show', extra_param %></td>
+        <td><%= link_to 'Edit', edit_extra_param_path(extra_param) %></td>
+        <td><%= link_to 'Destroy', extra_param, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Extra Param', new_extra_param_path %>

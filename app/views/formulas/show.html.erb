@@ -8,47 +8,46 @@
 </p>
 
 <p>
-  <strong>Win points:</strong>
-  <%= @formula.win_points %>
-</p>
-
-<p>
-  <strong>Lose points:</strong>
-  <%= @formula.lose_points %>
-</p>
-
-<p>
   <strong>
     <% if @formula.glicko %>
       Glicko
     <% else %>
       Elo
     <% end %>
-      is in use
   </strong>
+  is in use
 </p>
 
 <p>
   <% if @formula.winstreak %>
-    <strong>Winstreak is boosted for </strong>
-    <%= @formula.winstreak_boost %>
+    Winstreak is boosted for 
+    <strong><%= @formula.winstreak_boost %></strong>
   <% end %>
 </p>
 
 <p>
   <% if @formula.losestreak %>
-    <strong>Losestreak is boosted for </strong>
-    <%= @formula.losestreak_boost %>
+    Losestreak is boosted for 
+    <strong><%= @formula.losestreak_boost %></strong>
   <% end %>
 </p>
-
-<p>
-  <% if @formula.extra_params %>
-    Using Extra Params to calculate ratings
-  <% end %>
-</p>
+<% if @formula.use_extra_params %>
+  <p>
+    Using Extra Params to calculate ratings with 
+    <strong><%= @formula.extra_points %></strong>
+    extra points
+  </p>
+<% end %>
+<% if @formula.extra_params.any? %>
+  <%= render 'shared/extra_params', extra_params: @formula.extra_params %>
+<% end %>
 <% if current_user[:id] == @formula.user_id %>
-<%= link_to 'Edit formula', edit_formula_path(@formula), 
-           class: "btn btn-warning"%>
-<%= link_to 'Delete formula', @formula, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%>
+<%= link_to 'Add params', new_user_formula_extra_param_path(
+	current_user, @formula, @extra_param, 
+	params: { :formula_id => @formula[:id] }), 
+	class: "btn btn-success" %>
+<%= link_to 'Edit formula', edit_user_formula_path(current_user, @formula), 
+        class: "btn btn-warning"%>
+<%= link_to 'Delete formula', @formula, method: :delete, data: 
+	{ confirm: 'Are you sure?' }, class: "btn btn-danger"%>
 <% end %>
