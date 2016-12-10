@@ -21,7 +21,12 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
-  
+  namespace :api do
+    namespace :v1 do
+      get 'users/all'
+      post 'formulas/calculate'
+    end
+  end
 
   root 'users#index'
 end

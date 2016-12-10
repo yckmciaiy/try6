@@ -12,6 +12,19 @@
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
+      <% if logged_in? %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            API access credentials
+          </div>
+          <div class="panel-body">
+            <strong>Client id:</strong> <%= current_user.access_keys.first.id %>
+            <br />
+            <strong>Secret:</strong> <%= current_user.access_keys.first.secret %>
+          </div>
+        </div>
+      <% end %>
+      <div></div>
       <%= yield %>
       <%= render 'layouts/footer' %>
     </div>

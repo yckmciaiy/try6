@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161209112017) do
+ActiveRecord::Schema.define(version: 20161210000223) do
+
+  create_table "access_keys", force: :cascade do |t|
+    t.string   "secret"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_access_keys_on_user_id"
+  end
 
   create_table "extra_params", force: :cascade do |t|
     t.string   "title"

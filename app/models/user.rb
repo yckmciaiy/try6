@@ -1,7 +1,10 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
   has_many :formulas, :dependent => :destroy
-  
+
+  has_many :access_keys
+
+  after_create :create_access_keys
   before_save { email.downcase! }
 
   validates :name,  presence: true, length: { maximum: 80 }
@@ -13,7 +16,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  
+
 
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -38,5 +41,9 @@ class User < ApplicationRecord
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def create_access_keys
+    self.access_keys.create!(user: self)
   end
 end

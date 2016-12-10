@@ -27,7 +27,6 @@ class FormulasController < ApplicationController
   # POST /formulas.json
   def create
     @formula = current_user.formulas.new(formula_params)
-    users.new
     respond_to do |format|
       if @formula.save
         format.html { render :show, flash: {:success => "Formula successfully created"} }

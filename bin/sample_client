@@ -1,0 +1,77 @@
+#!/usr/bin/env ruby
+
+require 'rest-client'
+require 'api_auth'
+
+SampleClient = Struct.new(:url, :client_id, :secret) do
+  def calculate_formula(params)
+    fetch('/api/v1/formulas/calculate', :post, params)
+  end
+
+  private
+
+  def fetch(path, method = :get, parameters = {})
+    request_api(url + path, method = method, parameters)
+  end
+
+  def request_api(api_path, method = :get, parameters = {})
+    signed_request = build_signed_request(api_path, method, parameters)
+    response = signed_request.execute
+    parse_response(response)
+  end
+
+  def build_signed_request(api_url, method, parameters)
+    request = RestClient::Request.new(
+      url: api_url,
+      method: method,
+      headers: {
+        params: parameters,
+        content_type: :json
+      }
+    )
+    ApiAuth.sign!(request, client_id, secret)
+    request
+  end
+
+  def parse_response(response)
+    JSON.parse(response)
+  end
+end
+
+if ARGV.count < 3
+  puts 'USAGE: bundle exec bin/sample_client base_url client_id secret'
+  exit
+end
+
+url, client_id, secret, = ARGV
+client = SampleClient.new(url, client_id, secret)
+
+p client.calculate_formula(
+  formula_id: 1,
+  formula_params: [
+    {
+      r: 1,
+      rd: 2,
+      sigma: 3
+    },
+    {
+      r: 1,
+      rd: 2,
+      sigma: 3
+    }
+  ]
+)
+
+p client.calculate_formula(
+  formula_id: 2,
+  formula_params: [
+    {
+      r: 1,
+      k: 2,
+    },
+    {
+      r: 1,
+      k: 2,
+    }
+  ]
+)
