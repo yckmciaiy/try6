@@ -24,12 +24,42 @@ Formula.create!(
   user_id: 1,
   title: 'Elo',
   glicko: false,
-  winstreak: true,
+  winstreak: false,
   losestreak: false,
   winstreak_boost: 2.0,
   losestreak_boost: 2.0,
   use_extra_params: false,
   extra_points: nil
+)
+formula3 = Formula.create!(
+  id: 3,
+  user_id: 1,
+  title: 'Elo with extra params',
+  glicko: false,
+  winstreak: false,
+  losestreak: false,
+  winstreak_boost: 2.0,
+  losestreak_boost: 2.0,
+  use_extra_params: true,
+  extra_points: 50
+)
+formula3.extra_params.create!(
+  id: 1,
+  formula_id: 3,
+  title: "gpm",
+  weight: 10
+)
+formula3.extra_params.create!(
+  id: 2,
+  formula_id: 3,
+  title: "xpm",
+  weight: 4
+)
+formula3.extra_params.create!(
+  id: 3,
+  formula_id: 3,
+  title: "3rd extra param",
+  weight: 1
 )
 
 35.times do |n|

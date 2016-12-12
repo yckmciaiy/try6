@@ -1,11 +1,19 @@
 class FormulasController < ApplicationController
-
+  attr_reader :extra_points, :winstreak_boost, :losestreak_boost
   before_action :set_formula, :logged_in_user, 
 	only: [:show, :update, :destroy, :edit]
   before_filter :check_creator, only: [:save, :update, :destroy]
   # GET /formulas
   # GET /formulas.json 
-
+  def glicko?
+    @formula[:glicko]
+  end
+  def winstreak?
+    @formula[:winstreak]
+  end
+  def losestreak?
+    @formula[:losestreak]
+  end
   def new 
     @formula = current_user.formulas.new
   end
@@ -17,6 +25,7 @@ class FormulasController < ApplicationController
   # GET /formulas/1
   # GET /formulas/1.json
   def show
+
   end
 
   # GET /formulas/1/edit

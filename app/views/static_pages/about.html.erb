@@ -8,6 +8,20 @@
   which is suppose to help with creation of formulas for mmr calculating,
   as well as calculations themselfs. 
 </p>
+<hr />
+<p align="justify">
+  To calculate ratings using existing formulas just send signed post request to main page of current site with next provided data in json format:
+</p>
+<ul class="indexes">
+<li> formula_id</li>
+<li> winboost: true if used</li>
+<li> loseboost: true if used</li>
+<li> formula_params: array of next params </li>
+<li> r & k for elo calculations </li>
+<li> r & rd & sigma for glicko2 </li>
+<li> xtra_prams: array of extra params if any used </li>
+<li> param & avrg are pairs of xtra_prams provided </li>
+</ul>
 </div>
 </body>
 </html>

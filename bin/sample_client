@@ -48,30 +48,77 @@ client = SampleClient.new(url, client_id, secret)
 
 p client.calculate_formula(
   formula_id: 1,
+  winboost: true,
+  loseboost: true,
   formula_params: [
     {
-      r: 1,
-      rd: 2,
-      sigma: 3
+      r: 1600,
+      rd: 150,
+      sigma: 0.15
     },
     {
-      r: 1,
-      rd: 2,
-      sigma: 3
+      r: 1700,
+      rd: 50,
+      sigma: 0.2
     }
   ]
 )
 
 p client.calculate_formula(
   formula_id: 2,
+  winboost: false,
+  loseboost: false,
   formula_params: [
     {
-      r: 1,
-      k: 2,
+      r: 1632,
+      k: 20,
     },
     {
-      r: 1,
-      k: 2,
+      r: 1567,
+      k: 18,
+    }
+  ]
+)
+p client.calculate_formula(
+  formula_id: 3,
+  winboost: false,
+  loseboost: false,
+  formula_params: [
+    {
+      r: 1700,
+      k: 25,
+      xtra_prams: [
+	{
+	  param: 222,
+	  avrg: 280
+	},
+	{
+	  param: 120,
+	  avrg: 100
+	},
+	{
+	  param: 8,
+	  avrg: 12
+	}
+      ]
+    },
+    {
+      r: 1567,
+      k: 18,
+      xtra_prams: [
+	{
+	  param: 300,
+	  avrg: 280
+	},
+	{
+	  param: 150,
+	  avrg: 100
+	},
+	{
+	  param: 16,
+	  avrg: 12
+	}
+      ]
     }
   ]
 )

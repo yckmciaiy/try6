@@ -1,4 +1,6 @@
 class ExtraParamsController < ApplicationController
+  attr_reader :weight
+
   before_action :set_extra_param, only: [:show, :edit, :update, :destroy]
   # GET /extra_params
   # GET /extra_params.json
